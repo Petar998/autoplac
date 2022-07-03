@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "concurrently": "^7.2.2"
+  },
   "devDependencies": {},
   "scripts": {
+    "install": "cd server && npm i && cd ../frontend && npm i && cd ..",
+    "start:server": "cd server && npm run dev",
+    "start:frontend": "cd frontend && npm start",
+    "dev": "concurrently \"npm run start:server\" \"npm run start:frontend\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Petar",
   "license": "ISC"
 }
