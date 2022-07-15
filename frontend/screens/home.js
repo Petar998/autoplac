@@ -1,9 +1,21 @@
-import React from "react";
-import { Text } from "react-native";
+import React, { useContext } from "react";
+import { Button, Text, View, DevSettings } from "react-native";
+import { UserContext } from "../App";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Home = () => {
-    return(
-        <Text>Home screen</Text>
+    const user = useContext(UserContext);
+
+    const logOut = async () => {
+        await AsyncStorage.clear();
+        user.setLoggedIn(false);
+    }
+    return (
+        <View>
+            <Text>DOBRO DOŠLI {user?.data?.firstName} {user?.data?.lastName}</Text>
+            <Button title='Log out' onPress={logOut} />
+        </View>
     )
 }
 export default Home;

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Alert, DevSettings } from 'react-native';
 import Login from './screens/login';
 import Axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Navigator from './routes/drawer';
 
 export const UserContext = createContext(null);
 
@@ -11,7 +12,7 @@ const handleLogin = async (user) => {
   const allowedRoles = ['admin', 'seller'];
   try {
     const userResponse = await Axios.post(
-      'http://localhost:3333/login',
+      'http://10.0.2.2:3333/login',
       user,
       { withCredentials: false },
     );
@@ -62,12 +63,9 @@ const App = () => {
   }, [setLoggedIn, user]);
 
   return (
-    <UserContext.Provider value={{ isLoggedIn, handleLogin, data: user }}>
+    <UserContext.Provider value={{ isLoggedIn, handleLogin, setLoggedIn, data: user }}>
       {isLoggedIn &&
-        <View style={styles.container}>
-          <Text>Open up App.js to start working on your app!</Text>
-          <StatusBar style="auto" />
-        </View>
+        <Navigator />
       }
       {!isLoggedIn && <Login />}
     </UserContext.Provider>

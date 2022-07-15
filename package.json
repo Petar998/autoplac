@@ -11,7 +11,8 @@
     "install": "cd server && npm i && cd ../frontend && npm i && cd ..",
     "start:server": "cd server && npm run dev",
     "start:frontend": "cd frontend && npm start",
-    "dev": "concurrently \"adb reverse tcp:3333 tcp:3333\" \"npm run start:server\" \"npm run start:frontend\"",
+    "connect": "cd frontend && adb reverse tcp:3333 tcp:3333 && cd ..",
+    "dev": "concurrently \"npm run connect\" \"npm run start:server\" \"npm run start:frontend\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Petar",
