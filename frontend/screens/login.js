@@ -62,7 +62,7 @@ const Login = () => {
                             style={styles.inputField}
                         />
                         <Text style={styles.errorText}>{props.touched.password && props.errors.password}</Text>
-                        <Button color='#B2B5B8' onPress={props.handleSubmit} title='Log in' />
+                        <Button color='#B2B5B8' onPress={props.handleSubmit} title='Prijavi se' />
                     </View>
                 )}
             </Formik>

@@ -8,17 +8,17 @@ const screens = {
         screen: Home,
         navigationOptions: ({ navigation }) => {
             return {
-                headerTitle: () => <Header title='Početna stranica' navigation={navigation} />
+                headerTitle: () => <Header title='Početna' navigation={navigation} />
             }
         },
     },
 };
 
 const HomeStack = createStackNavigator(screens, {
-    //   defaultNavigationOptions: {
-    //     headerTintColor: '#444',
-    //     headerStyle: { backgroundColor: '#eee', height: 60 }
-    //   }
+    defaultNavigationOptions: {
+        headerTintColor: '#444',
+        headerStyle: { backgroundColor: '#eee', height: 60 }
+    }
 });
 
 export default HomeStack;

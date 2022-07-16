@@ -22,7 +22,7 @@ export default function Header({ title, navigation }) {
 const styles = StyleSheet.create({
   header: {
     width: '100%',
-    height: 40,
+    height: 45,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   icon: {
     position: 'absolute',
     left: 16,
+    top: 15
   },
   headerTitle: {
     flexDirection: 'row'
