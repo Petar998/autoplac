@@ -1,9 +1,10 @@
 import React from "react";
 import { Text } from "react-native";
+import CarForm from "../../components/forms/carForm";
 
 const NewCar = () => {
     return (
-        <Text>New car screen</Text>
+        <CarForm isNew={true} />
     )
 }
 export default NewCar;

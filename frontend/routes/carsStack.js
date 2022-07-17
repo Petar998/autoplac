@@ -22,10 +22,9 @@ const screens = {
 };
 
 const carsStack = createStackNavigator(screens, {
-    // defaultNavigationOptions: {
-    //     headerTintColor: '#444',
-    //     headerStyle: { backgroundColor: '#eee', height: 60 }
-    // }
+    defaultNavigationOptions: {
+        headerStyle: { marginTop: 10 }
+    }
 });
 
 export default carsStack;

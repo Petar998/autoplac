@@ -2,11 +2,6 @@
 
 npm install
 
-# Povezivanje lokalnog backend porta sa mobilnim u slucaju da dođe do greške sa mrežom
-
-cd frontend
-adb reverse tcp:3333 tcp:3333
-
 # Pokretanje projekta (u root)
 
 Komanda: npm run dev
