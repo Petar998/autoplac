@@ -51,7 +51,7 @@ const Login = () => {
                             value={props.values.email}
                             style={styles.inputField}
                         />
-                        <Text style={styles.errorText}>{props.touched.email && props.errors.email}</Text>
+                        <Text style={styles.errorText}>{props.touched.email && props.errors.email && 'Ovo polje je obavezno!'}</Text>
 
                         <TextInput
                             placeholder="Password"
@@ -61,7 +61,7 @@ const Login = () => {
                             secureTextEntry
                             style={styles.inputField}
                         />
-                        <Text style={styles.errorText}>{props.touched.password && props.errors.password}</Text>
+                        <Text style={styles.errorText}>{props.touched.password && props.errors.password && 'Ovo polje je obavezno!'}</Text>
                         <Button color='#B2B5B8' onPress={props.handleSubmit} title='Prijavi se' />
                     </View>
                 )}
@@ -76,17 +76,20 @@ const styles = StyleSheet.create({
     },
     loginForm: {
         height: '100%',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        paddingHorizontal: 10,
     },
     inputField: {
         borderTopWidth: 1,
         borderLeftWidth: 1,
         borderRightWidth: 1,
         borderBottomWidth: 1,
-        marginBottom: 5,
+        marginBottom: 2,
+        paddingLeft: 5
     },
     errorText: {
-        marginBottom: 5
+        marginBottom: 5,
+        color: '#ff0000'
     }
 })
 export default Login;
