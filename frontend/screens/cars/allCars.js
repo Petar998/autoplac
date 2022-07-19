@@ -17,7 +17,6 @@ const AllCars = ({ navigation }) => {
     const deleteCar = async (id) => {
         try {
             await Axios.delete(`http://10.0.2.2:3333/cars/${id}`, { withCredentials: false, headers: { Authorization: `Bearer ${user.data.token}` } });
-            navigation.push('AllCars')
             Alert.alert('Poruka!', 'Vozilo je obrisano.', [{ text: "OK" }]);
         } catch (err) {
             Alert.alert('Greška!', 'Problem sa brisanjem vozila.', [{ text: "OK" }]);
