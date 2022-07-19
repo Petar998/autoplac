@@ -8,6 +8,7 @@ import * as yup from 'yup';
 import { fuels } from "../data/fuels";
 import { bodies } from "../data/carBodies";
 import { seats } from "../data/seats";
+import { years } from "../data/years";
 
 const initValues = {
     brand: '',
@@ -23,7 +24,7 @@ const initValues = {
     importCountry: '',
 }
 
-const CarForm = ({ data, isNew }) => {
+const CarForm = ({ data, isNew, onSubmit }) => {
     const [brands, setBrands] = useState([]);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('');
@@ -38,16 +39,19 @@ const CarForm = ({ data, isNew }) => {
     const [valueFour, setValueFour] = useState('');
     const [openFive, setOpenFive] = useState(false);
     const [valueFive, setValueFive] = useState('');
+    const [openSix, setOpenSix] = useState(false);
+    const [valueSix, setValueSix] = useState('');
     const [bodyList, setBodyList] = useState(bodies);
     const [fuelList, setFuelList] = useState(fuels);
-    const [seatList, setSeatList] = useState(seats)
+    const [seatList, setSeatList] = useState(seats);
+    const [yearList, setYearList] = useState(years);
 
     const reviewSchema = yup.object({
         brand: yup.string()
             .required(),
         model: yup.string()
             .required(),
-        year: yup.number()
+        year: yup.string()
             .required(),
         mileage: yup.number()
             .required(),
@@ -96,7 +100,7 @@ const CarForm = ({ data, isNew }) => {
     }
 
     const onFinish = (values) => {
-        console.log(values)
+        onSubmit(values)
     }
 
     useEffect(() => {
@@ -118,6 +122,7 @@ const CarForm = ({ data, isNew }) => {
                         style={formStyles.form}
                     >
                         <DropDownPicker
+                            listMode='MODAL'
                             style={formStyles.formField}
                             onChangeValue={props.handleChange('brand')}
                             open={open}
@@ -133,6 +138,7 @@ const CarForm = ({ data, isNew }) => {
                         />
                         <Text style={formStyles.errorText}>{props.touched.brand && props.errors.brand && 'Ovo polje je obavezno!'}</Text>
                         <DropDownPicker
+                            listMode='MODAL'
                             style={formStyles.formField}
                             onChangeValue={props.handleChange('model')}
                             open={openTwo}
@@ -147,13 +153,18 @@ const CarForm = ({ data, isNew }) => {
                             zIndex={9}
                         />
                         <Text style={formStyles.errorText}>{props.touched.model && props.errors.model && 'Ovo polje je obavezno!'}</Text>
-                        <TextInput
-                            style={formStyles.inputField}
-                            keyboardType='numeric'
-                            onChangeText={props.handleChange('year')}
-                            onBlur={props.handleBlur('year')}
-                            value={props.values.year}
+                        <DropDownPicker
+                            listMode='MODAL'
+                            style={formStyles.formField}
+                            onChangeValue={props.handleChange('year')}
+                            open={openThree}
+                            value={valueThree}
+                            items={yearList}
+                            setOpen={setOpenThree}
+                            setValue={setValueThree}
+                            setItems={setYearList}
                             placeholder='Godište'
+                            zIndex={8}
                         />
                         <Text style={formStyles.errorText}>{props.touched.year && props.errors.year && 'Ovo polje je obavezno!'}</Text>
                         <TextInput
@@ -166,48 +177,51 @@ const CarForm = ({ data, isNew }) => {
                         />
                         <Text style={formStyles.errorText}>{props.touched.mileage && props.errors.mileage && 'Ovo polje je obavezno!'}</Text>
                         <DropDownPicker
+                            listMode='MODAL'
                             style={formStyles.formField}
                             onChangeValue={props.handleChange('body')}
-                            open={openThree}
-                            value={valueThree}
+                            open={openFour}
+                            value={valueFour}
                             items={bodyList}
-                            setOpen={setOpenThree}
-                            setValue={setValueThree}
+                            setOpen={setOpenFour}
+                            setValue={setValueFour}
                             setItems={setBodyList}
                             placeholder='Karoserija'
                             searchable={true}
                             searchPlaceholder='Pretraga'
-                            zIndex={8}
+                            zIndex={7}
                         />
                         <Text style={formStyles.errorText}>{props.touched.body && props.errors.body && 'Ovo polje je obavezno!'}</Text>
                         <DropDownPicker
+                            listMode='MODAL'
                             style={formStyles.formField}
                             onChangeValue={props.handleChange('fuel')}
-                            open={openFour}
-                            value={valueFour}
+                            open={openFive}
+                            value={valueFive}
                             items={fuelList}
-                            setOpen={setOpenFour}
-                            setValue={setValueFour}
+                            setOpen={setOpenFive}
+                            setValue={setValueFive}
                             setItems={setFuelList}
                             placeholder='Gorivo'
                             searchable={true}
                             searchPlaceholder='Pretraga'
-                            zIndex={7}
+                            zIndex={6}
                         />
                         <Text style={formStyles.errorText}>{props.touched.fuel && props.errors.fuel && 'Ovo polje je obavezno!'}</Text>
                         <DropDownPicker
+                            listMode='MODAL'
                             style={formStyles.formField}
                             onChangeValue={props.handleChange('seat')}
-                            open={openFive}
-                            value={valueFive}
+                            open={openSix}
+                            value={valueSix}
                             items={seatList}
-                            setOpen={setOpenFive}
-                            setValue={setValueFive}
+                            setOpen={setOpenSix}
+                            setValue={setValueSix}
                             setItems={setSeatList}
                             placeholder='Broj sedišta'
                             searchable={true}
                             searchPlaceholder='Pretraga'
-                            zIndex={6}
+                            zIndex={5}
                         />
                         <Text style={formStyles.errorText}>{props.touched.seat && props.errors.seat && 'Ovo polje je obavezno!'}</Text>
                         <TextInput
@@ -244,7 +258,7 @@ const CarForm = ({ data, isNew }) => {
                             placeholder='Zemlja uvoza'
                         />
                         <Text style={formStyles.errorText}>{props.touched.importCountry && props.errors.importCountry && 'Ovo polje je obavezno!'}</Text>
-                        <Button color='#B2B5B8' onPress={props.handleSubmit} title='POTVRDI' />
+                        <Button color='#B2B5B8' onPress={props.handleSubmit} title='UNESI' />
                     </View>
                 )}
             </Formik>

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
 const loginRoutes = require("./routes/login_routes");
-const carRoutes = require("./routes/cars");
+const carRoutes = require("./routes/cars_routes");
 const sellRoutes = require("./routes/sells");
 const complaintRoutes = require("./routes/complaints");
 const cors = require('cors')
@@ -20,7 +20,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/autoplac-db", { useNewUrlParser: tru
 app.use(cors());
 // app.use("/", indexRouter);
 loginRoutes(app);
-//carRoutes(app);
+carRoutes(app);
 // app.use("/cars", carRouter);
 // app.use("/sells", sellRouter);
 // app.use("/complaints", complaintRouter);

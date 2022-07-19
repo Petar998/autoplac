@@ -11,10 +11,10 @@ exports.login = async (req, res) => {
         return res.status(500).json({ message: error.message });
       }
       if (!user) {
-        return res.status(401).json({ message: 'Auth failed, user not found!' });
+        return res.status(401).json({ message: 'Neuspešna prijava, korisnik nije pronađen!' });
       }
       if (!user.validPassword(req.body.password)) {
-        return res.status(401).json({ message: 'Auth failed, incorrect password' });
+        return res.status(401).json({ message: 'Neuspešna prijava, pogrešna lozinka!' });
       }
       const t = jwt.sign(
         {

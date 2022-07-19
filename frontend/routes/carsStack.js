@@ -3,6 +3,7 @@ import React from 'react';
 import Header from '../components/header';
 import AllCars from '../screens/cars/allCars';
 import NewCar from '../screens/cars/newCar'
+import EditCar from '../screens/cars/editCar';
 
 const screens = {
     AllCars: {
@@ -17,6 +18,12 @@ const screens = {
         screen: NewCar,
         navigationOptions: {
             title: 'Novo vozilo',
+        }
+    },
+    EditCar: {
+        screen: EditCar,
+        navigationOptions: {
+            title: 'Izmeni vozilo',
         }
     },
 };

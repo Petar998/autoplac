@@ -26,11 +26,11 @@ const handleLogin = async (user) => {
   } catch (err) {
     if (err?.response?.data?.message) {
       console.log('\n Login error = ', err.response.data.message);
-      Alert.alert('Error!', err.response.data.message, [{ text: "OK" }]);
+      Alert.alert('Greška!', err.response.data.message, [{ text: "OK" }]);
     }
     else {
       console.log('\n Login error = ', err);
-      Alert.alert('Error!', 'Something went wrong.', [{ text: "OK" }]);
+      Alert.alert('Greška!', 'Došlo je do greške.', [{ text: "OK" }]);
     }
   }
 };
