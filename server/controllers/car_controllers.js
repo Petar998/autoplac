@@ -18,9 +18,28 @@ exports.getAll = async (req, res) => {
     }
 };
 
+exports.getById = async (req, res) => {
+    if (!req.params.id || req.params.id.length !== 24) {
+        return res.status(401).json({
+            message: 'Wrong id format.',
+        });
+    }
+    try {
+        const car = await Car.findById({ _id: req.params.id });
+        if (!car) {
+            return res.status(401).json({ message: 'Cardoes not exist.' });
+        }
+        return res.status(200).json(car);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+
 exports.post = async (req, res) => {
     try {
         const item = new Car(req.body);
+        item.sold = false;
         await item.save();
         return res.status(201).json({ message: 'Created' });
     } catch (error) {
@@ -41,6 +60,19 @@ exports.delete = async (req, res) => {
         }
         await item.remove();
         return res.status(200).json({ message: 'Removed' });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+exports.update = async (req, res) => {
+    if (!req.params.id || req.params.id.length !== 24) {
+        return res.status(401).json({ message: 'Wrong id format.' });
+    }
+    try {
+        const id = req.params.id;
+        await Car.updateOne({ _id: id }, { ...req.body });
+        return res.status(200).json({ message: 'Updated' });
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

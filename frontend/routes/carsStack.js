@@ -10,7 +10,8 @@ const screens = {
         screen: AllCars,
         navigationOptions: ({ navigation }) => {
             return {
-                headerTitle: () => <Header title='Vozila' navigation={navigation} />
+                headerTitle: () => <Header title='Vozila' navigation={navigation} />,
+                headerLeft: null,
             }
         },
     },

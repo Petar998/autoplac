@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Alert, DevSettings, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, DevSettings, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import useAxios from '../../components/hooks/useAxios';
 import { UserContext } from "../../App";
@@ -9,19 +9,38 @@ import Axios from 'axios';
 const AllCars = ({ navigation }) => {
     const user = useContext(UserContext);
     const [cars, fetchCars] = useAxios('', [], user.data.token, 'get');
+    const [carList, setCarList] = useState([]);
 
     useEffect(() => {
         fetchCars('http://10.0.2.2:3333/cars', []);
-    }, [fetchCars]);
+        if (cars && cars.data && cars.data.items) {
+            setCarList(cars.data.items);
+        }
+    }, [fetchCars, cars]);
+
+
+    const refreshCarList = async () => {
+        try {
+            const response = await Axios.get('http://10.0.2.2:3333/cars',
+                { withCredentials: false, headers: { Authorization: `Bearer ${user.data.token}` } });
+            if (response.data && response.data.items) {
+                setCarList(response.data.items);
+            }
+        } catch (error) {
+            Alert.alert('Greška!', 'Problem sa učitavanjem vozila', [{ text: "OK" }]);
+        }
+    }
 
     const deleteCar = async (id) => {
         try {
             await Axios.delete(`http://10.0.2.2:3333/cars/${id}`, { withCredentials: false, headers: { Authorization: `Bearer ${user.data.token}` } });
             Alert.alert('Poruka!', 'Vozilo je obrisano.', [{ text: "OK" }]);
+            refreshCarList();
         } catch (err) {
             Alert.alert('Greška!', 'Problem sa brisanjem vozila.', [{ text: "OK" }]);
         }
     };
+    console.log('entered in all cars')
 
     return (
         <View>
@@ -31,13 +50,13 @@ const AllCars = ({ navigation }) => {
                     <AntDesign name="pluscircleo" size={18} />
                 </View>
             </TouchableOpacity>
-            <View>
-                {cars && cars.data && cars.data.items && cars.data.items.map((car) => <View key={car._id}>
+            <ScrollView>
+                {carList.map((car) => <View key={car._id}>
                     <Text>{car.brand} {car.model}</Text>
-                    <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.navigate('EditCar')} />
+                    <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.navigate('EditCar', { id: car._id })} />
                     <MaterialIcons name="delete" size={20} onPress={() => deleteCar(car._id)} />
                 </View>)}
-            </View>
+            </ScrollView>
         </View>
     )
 }

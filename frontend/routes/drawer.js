@@ -15,6 +15,7 @@ const RootDrawerNavigator = createDrawerNavigator({
         navigationOptions: { drawerIcon: <MaterialIcons name='directions-car' size={18} /> }
     }
 }, {
+    unmountInactiveRoutes: true,
     contentOptions: {
         inactiveTintColor: '#000000',
         activeTintColor: '#000080',

@@ -12,7 +12,6 @@ export default function Header({ title, navigation }) {
     <ImageBackground source={require('../assets/car-bg.png')} style={styles.header}>
       {navigation && <MaterialIcons name='menu' size={28} onPress={openMenu} style={styles.icon} />}
       <View style={styles.headerTitle}>
-        {/* <Image source={require('../assets/logo.jpg')} style={styles.headerImage} />*/}
         <Text style={styles.headerText}>{title}</Text>
       </View>
     </ImageBackground>

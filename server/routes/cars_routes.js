@@ -7,5 +7,7 @@ module.exports = (app) => {
         .get(jwt.checkToken, permit(['admin', 'user']), controller.getAll)
         .post(jwt.checkToken, permit(['admin', 'user']), controller.post);
     app.route('/cars/:id')
-        .delete(jwt.checkToken, permit(['admin', 'user']), controller.delete)
+        .get(jwt.checkToken, permit(['admin', 'user']), controller.getById)
+        .put(jwt.checkToken, permit(['admin', 'user']), controller.update)
+        .delete(jwt.checkToken, permit(['admin', 'user']), controller.delete);
 }
