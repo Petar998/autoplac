@@ -11,6 +11,7 @@ import { seats } from "../data/seats";
 import { years } from "../data/years";
 
 const initValues = {
+    code: '',
     brand: '',
     model: '',
     year: '',
@@ -47,6 +48,8 @@ const CarForm = ({ data, onSubmit }) => {
     const [yearList, setYearList] = useState(years);
 
     const reviewSchema = yup.object({
+        code: yup.string()
+            .required(),
         brand: yup.string()
             .required(),
         model: yup.string()
@@ -83,6 +86,7 @@ const CarForm = ({ data, onSubmit }) => {
     }, [])
 
     const getModels = async (brandId) => {
+        console.log('load models')
         if (brandId && brandId !== '') {
             const response = await Axios.get(`https://www.polovniautomobili.com/json/v1/getModelsByBrand/${brandId}`);
             setModels(response.data);
@@ -132,6 +136,14 @@ const CarForm = ({ data, onSubmit }) => {
                         <View
                             style={formStyles.form}
                         >
+                            <TextInput
+                                style={formStyles.inputField}
+                                onChangeText={props.handleChange('code')}
+                                onBlur={props.handleBlur('code')}
+                                value={props.values.code}
+                                placeholder='Šifra vozila'
+                            />
+                            <Text style={formStyles.errorText}>{props.touched.code && props.errors.code && 'Ovo polje je obavezno!'}</Text>
                             <DropDownPicker
                                 listMode='MODAL'
                                 style={formStyles.formField}

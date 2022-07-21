@@ -5,6 +5,7 @@ import useAxios from '../../components/hooks/useAxios';
 import { UserContext } from "../../App";
 import { MaterialIcons } from '@expo/vector-icons';
 import Axios from 'axios';
+import { carStyles } from "../../styles/carStyle";
 
 const AllCars = ({ navigation }) => {
     const user = useContext(UserContext);
@@ -50,11 +51,19 @@ const AllCars = ({ navigation }) => {
                     <AntDesign name="pluscircleo" size={18} />
                 </View>
             </TouchableOpacity>
-            <ScrollView>
-                {carList.map((car) => <View key={car._id}>
-                    <Text>{car.brand} {car.model}</Text>
-                    <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.navigate('EditCar', { id: car._id })} />
-                    <MaterialIcons name="delete" size={20} onPress={() => deleteCar(car._id)} />
+            <ScrollView style={carStyles.constainer}>
+                {carList.map((car) => <View key={car._id} style={carStyles.card}>
+                    <View>
+                        <Text>Šifra vozila: {car.code}</Text>
+                        <Text>{car.brand} {car.model}</Text>
+                        <Text>{parseFloat(car.price).toFixed(2)} €</Text>
+                        <Text>{car.year}</Text>
+                    </View>
+                    <View style={carStyles.action}>
+                        <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.navigate('EditCar', { id: car._id })} />
+                        <MaterialIcons name="delete" size={20} onPress={() => deleteCar(car._id)} />
+                        <MaterialIcons name='remove-red-eye' size={20} />
+                    </View>
                 </View>)}
             </ScrollView>
         </View>
@@ -70,6 +79,7 @@ const styles = StyleSheet.create({
         width: '30%',
         marginLeft: 'auto',
         marginRight: 'auto',
+
     },
     buttonText: {
         fontSize: 14
