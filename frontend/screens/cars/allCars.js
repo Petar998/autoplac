@@ -1,16 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Alert, DevSettings, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View, Modal, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import useAxios from '../../components/hooks/useAxios';
 import { UserContext } from "../../App";
 import { MaterialIcons } from '@expo/vector-icons';
 import Axios from 'axios';
 import { carStyles } from "../../styles/carStyle";
+import ViewCar from "../../components/viewCar";
 
 const AllCars = ({ navigation }) => {
     const user = useContext(UserContext);
     const [cars, fetchCars] = useAxios('', [], user.data.token, 'get');
     const [carList, setCarList] = useState([]);
+    const [openModal, setOpenModal] = useState(false);
+    const [chosenCar, setChosenCar] = useState();
 
     useEffect(() => {
         fetchCars('http://10.0.2.2:3333/cars', []);
@@ -41,7 +44,11 @@ const AllCars = ({ navigation }) => {
             Alert.alert('Greška!', 'Problem sa brisanjem vozila.', [{ text: "OK" }]);
         }
     };
-    console.log('entered in all cars')
+
+    const viewInformation = (data) => {
+        setChosenCar(data);
+        setOpenModal(true);
+    }
 
     return (
         <View>
@@ -62,10 +69,24 @@ const AllCars = ({ navigation }) => {
                     <View style={carStyles.action}>
                         <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.navigate('EditCar', { id: car._id })} />
                         <MaterialIcons name="delete" size={20} onPress={() => deleteCar(car._id)} />
-                        <MaterialIcons name='remove-red-eye' size={20} />
+                        <MaterialIcons name='remove-red-eye' size={20} onPress={() => viewInformation(car)} />
                     </View>
                 </View>)}
             </ScrollView>
+            <Modal visible={openModal} animationType='slide'>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View>
+                        <View style={carStyles.xIcon}>
+                            <MaterialIcons
+                                name='close'
+                                size={24}
+                                onPress={() => setOpenModal(false)}
+                            />
+                        </View>
+                        <ViewCar car={chosenCar} />
+                    </View>
+                </TouchableWithoutFeedback>
+            </Modal>
         </View>
     )
 }

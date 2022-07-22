@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, ScrollView, Text, TextInput, View } from "react-native";
 import Axios from 'axios';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Formik } from "formik";
+import { Formik, useFormik } from "formik";
 import { formStyles } from "../../styles/formStyle";
 import * as yup from 'yup';
 import { fuels } from "../data/fuels";
@@ -26,6 +26,7 @@ const initValues = {
 }
 
 const CarForm = ({ data, onSubmit }) => {
+    const formik = useFormik({ initialValues: initValues });
     const [brands, setBrands] = useState([]);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('');
@@ -83,10 +84,16 @@ const CarForm = ({ data, onSubmit }) => {
 
     useEffect(() => {
         getBrands()
+        if (data) {
+            if (value === '') {
+                setValue(data.brand)
+            }
+        } else {
+            formik.resetForm();
+        }
     }, [])
 
     const getModels = async (brandId) => {
-        console.log('load models')
         if (brandId && brandId !== '') {
             const response = await Axios.get(`https://www.polovniautomobili.com/json/v1/getModelsByBrand/${brandId}`);
             setModels(response.data);
@@ -116,13 +123,7 @@ const CarForm = ({ data, onSubmit }) => {
             const chosenBrand = brands.filter((brand) => brand.brandName === value)
             getModels(chosenBrand[0].brandID)
         }
-    }, [value])
-
-    if (data) {
-        if (value === '') {
-            setValue(data.brand)
-        }
-    }
+    }, [value, brands])
 
     return (
         <ScrollView>
