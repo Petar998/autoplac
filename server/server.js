@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const indexRouter = require("./routes/index");
 const loginRoutes = require("./routes/login_routes");
 const carRoutes = require("./routes/cars_routes");
+const userRoutes = require('./routes/user_routes');
 const sellRoutes = require("./routes/sells");
 const complaintRoutes = require("./routes/complaints");
 const cors = require('cors')
@@ -21,6 +22,7 @@ app.use(cors());
 // app.use("/", indexRouter);
 loginRoutes(app);
 carRoutes(app);
+userRoutes(app);
 // app.use("/cars", carRouter);
 // app.use("/sells", sellRouter);
 // app.use("/complaints", complaintRouter);

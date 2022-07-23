@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const carStyles = StyleSheet.create({
+export const userStyles = StyleSheet.create({
     constainer: {
         padding: 10,
     },
@@ -10,11 +10,10 @@ export const carStyles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         borderColor: '#000000',
-        borderWidth: 2,
+        borderWidth: 1,
         marginBottom: 10,
-        backgroundColor: '#e6e6e6'
     },
     action: {
         flexDirection: 'row'
     }
-});
+})

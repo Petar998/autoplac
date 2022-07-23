@@ -1,9 +1,11 @@
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createAppContainer } from 'react-navigation';
 import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 import HomeStack from './homeStack';
 import CarsStack from './carsStack';
+import UsersStack from './userStack';
 
 const RootDrawerNavigator = createDrawerNavigator({
     Početna: {
@@ -13,6 +15,10 @@ const RootDrawerNavigator = createDrawerNavigator({
     Vozila: {
         screen: CarsStack,
         navigationOptions: { drawerIcon: <MaterialIcons name='directions-car' size={18} /> }
+    },
+    Korisnici: {
+        screen: UsersStack,
+        navigationOptions: { drawerIcon: <FontAwesome name='user' size={18} /> }
     }
 }, {
     unmountInactiveRoutes: true,

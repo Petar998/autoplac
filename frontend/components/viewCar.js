@@ -1,14 +1,14 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import { carStyles } from '../styles/carStyle'
+import { modalStyles } from '../styles/modalStyle'
 
 const ViewCar = ({ car }) => {
     return (
         <View>
-            <View style={carStyles.modalHeader}>
-                <Text style={carStyles.modalTitle}>Informacije o vozilu</Text>
+            <View style={modalStyles.modalHeader}>
+                <Text style={modalStyles.modalTitle}>Informacije o vozilu</Text>
             </View>
-            <View style={carStyles.modalContent}>
+            <View style={modalStyles.modalContent}>
                 <Text>Šifra vozila: {car.code}</Text>
                 <Text>Marka: {car.brand}</Text>
                 <Text>Model: {car.model}</Text>

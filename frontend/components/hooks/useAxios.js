@@ -26,7 +26,7 @@ const dataFetchReducer = (state, action) => {
   }
 };
 
-export default function useData(initialUrl, initialData, token, method) {
+export default function useAxios(initialUrl, initialData, token, method) {
   const [url, setUrl] = useState(initialUrl);
 
   const [state, dispatch] = useReducer(dataFetchReducer, {

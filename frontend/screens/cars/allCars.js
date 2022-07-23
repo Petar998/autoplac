@@ -7,6 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Axios from 'axios';
 import { carStyles } from "../../styles/carStyle";
 import ViewCar from "../../components/viewCar";
+import { modalStyles } from "../../styles/modalStyle";
 
 const AllCars = ({ navigation }) => {
     const user = useContext(UserContext);
@@ -59,7 +60,7 @@ const AllCars = ({ navigation }) => {
                 </View>
             </TouchableOpacity>
             <ScrollView style={carStyles.constainer}>
-                {carList.map((car) => <View key={car._id} style={carStyles.card}>
+                {carList.length !== 0 ? carList.map((car) => <View key={car._id} style={carStyles.card}>
                     <View>
                         <Text>Šifra vozila: {car.code}</Text>
                         <Text>{car.brand} {car.model}</Text>
@@ -71,12 +72,12 @@ const AllCars = ({ navigation }) => {
                         <MaterialIcons name="delete" size={20} onPress={() => deleteCar(car._id)} />
                         <MaterialIcons name='remove-red-eye' size={20} onPress={() => viewInformation(car)} />
                     </View>
-                </View>)}
+                </View>) : <Text>NEMA PODATAKA</Text>}
             </ScrollView>
             <Modal visible={openModal} animationType='slide'>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View>
-                        <View style={carStyles.xIcon}>
+                        <View style={modalStyles.xIcon}>
                             <MaterialIcons
                                 name='close'
                                 size={24}

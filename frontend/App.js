@@ -4,7 +4,8 @@ import { StyleSheet, Text, View, Alert, DevSettings } from 'react-native';
 import Login from './screens/login';
 import Axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Navigator from './routes/drawer';
+import AdminNavigator from './routes/adminDrawer';
+import UserNavigator from './routes/userDrawer';
 
 export const UserContext = createContext(null);
 
@@ -64,21 +65,11 @@ const App = () => {
 
   return (
     <UserContext.Provider value={{ isLoggedIn, handleLogin, setLoggedIn, data: user }}>
-      {isLoggedIn &&
-        <Navigator />
+      {isLoggedIn && user?.role === 'admin' ? <AdminNavigator /> : <UserNavigator />
       }
       {!isLoggedIn && <Login />}
     </UserContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default App;

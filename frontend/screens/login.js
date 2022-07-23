@@ -50,11 +50,12 @@ const Login = () => {
                             onBlur={props.handleBlur('email')}
                             value={props.values.email}
                             style={styles.inputField}
+                            keyboardType='email-address'
                         />
                         <Text style={styles.errorText}>{props.touched.email && props.errors.email && 'Ovo polje je obavezno!'}</Text>
 
                         <TextInput
-                            placeholder="Password"
+                            placeholder="Lozinka"
                             onChangeText={props.handleChange('password')}
                             onBlur={props.handleBlur('password')}
                             value={props.values.password}
