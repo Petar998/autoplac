@@ -26,7 +26,6 @@ const initValues = {
 }
 
 const CarForm = ({ data, onSubmit }) => {
-    const formik = useFormik({ initialValues: initValues });
     const [brands, setBrands] = useState([]);
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('');
@@ -88,8 +87,6 @@ const CarForm = ({ data, onSubmit }) => {
             if (value === '') {
                 setValue(data.brand)
             }
-        } else {
-            formik.resetForm();
         }
     }, [])
 

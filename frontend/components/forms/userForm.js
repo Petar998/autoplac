@@ -6,21 +6,15 @@ import { formStyles } from "../../styles/formStyle";
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const UserForm = ({ data, onSubmit }) => {
-    const initValues = data ? {
+    const initValues = {
         firstName: '',
         lastName: '',
         email: '',
         password: '',
         role: '',
-    } : {
-        firstName: '',
-        lastName: '',
-        email: '',
-        role: '',
         newPassword: '',
         confirmPassword: ''
     }
-    const formik = useFormik({ initialValues: initValues });
     const [value, setValue] = useState(data ? data.role : '');
     const [open, setOpen] = useState(false);
     const [roleList, setRoleList] = useState([{
@@ -30,38 +24,24 @@ const UserForm = ({ data, onSubmit }) => {
         label: 'Korisnik', value: 'user'
     }])
 
-    const reviewSchema = data ? yup.object({
+    const reviewSchema = yup.object({
         firstName: yup.string()
             .required(),
         lastName: yup.string()
             .required(),
         email: yup.string()
             .required(),
-        password: yup.string()
-            .required(),
+        password: !data ? yup.string()
+            .required() : yup.string(),
         role: yup.string()
             .required(),
-    }) : yup.object({
-        firstName: yup.string()
-            .required(),
-        lastName: yup.string()
-            .required(),
-        email: yup.string()
-            .required(),
-        role: yup.string()
-            .required()
+        newPassword: yup.string(),
+        confirmPassword: yup.string()
     });
-
-    useEffect(() => {
-        if (!data) {
-            formik.resetForm();
-        }
-    }, [])
 
     let initialValues = data ? data : initValues;
 
     const onFinish = (values) => {
-        console.log('finished user')
         onSubmit(values)
     }
 

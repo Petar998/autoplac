@@ -53,7 +53,7 @@ const AllCars = ({ navigation }) => {
 
     return (
         <View>
-            <TouchableOpacity onPress={() => navigation.navigate('NewCar')}>
+            <TouchableOpacity onPress={() => navigation.push('NewCar')}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>DODAJ</Text>
                     <AntDesign name="pluscircleo" size={18} />
@@ -68,7 +68,7 @@ const AllCars = ({ navigation }) => {
                         <Text>{car.year}</Text>
                     </View>
                     <View style={carStyles.action}>
-                        <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.navigate('EditCar', { id: car._id })} />
+                        <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.push('EditCar', { id: car._id })} />
                         <MaterialIcons name="delete" size={20} onPress={() => deleteCar(car._id)} />
                         <MaterialIcons name='remove-red-eye' size={20} onPress={() => viewInformation(car)} />
                     </View>

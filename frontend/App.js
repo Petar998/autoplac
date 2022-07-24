@@ -10,7 +10,7 @@ import UserNavigator from './routes/userDrawer';
 export const UserContext = createContext(null);
 
 const handleLogin = async (user) => {
-  const allowedRoles = ['admin', 'seller'];
+  const allowedRoles = ['admin', 'user'];
   try {
     const userResponse = await Axios.post(
       'http://10.0.2.2:3333/login',

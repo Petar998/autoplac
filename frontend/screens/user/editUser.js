@@ -18,7 +18,6 @@ const EditUser = ({ navigation }) => {
 
     const onSubmit = async (data) => {
         try {
-            console.log('here')
             if (
                 (data.newPassword !== '' && data.confirmPassword !== '' && data.newPassword !== data.confirmPassword)
             ) {

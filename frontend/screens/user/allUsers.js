@@ -55,7 +55,7 @@ const allUsers = ({ navigation }) => {
 
     return (
         <View>
-            <TouchableOpacity onPress={() => navigation.navigate('NewUser')}>
+            <TouchableOpacity onPress={() => navigation.push('NewUser')}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>DODAJ</Text>
                     <AntDesign name="pluscircleo" size={18} />
@@ -68,7 +68,7 @@ const allUsers = ({ navigation }) => {
                         <Text>Uloga: {user.role === 'admin' ? 'Admin' : 'Korisnik'}</Text>
                     </View>
                     <View style={userStyles.action}>
-                        <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.navigate('EditUser', { id: user._id })} />
+                        <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.push('EditUser', { id: user._id })} />
                         <MaterialIcons name="delete" size={20} onPress={() => deleteUser(user._id)} />
                         <MaterialIcons name='remove-red-eye' size={20} onPress={() => viewInformation(user)} />
                     </View>
