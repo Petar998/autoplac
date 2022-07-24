@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const userStyles = StyleSheet.create({
+export const listStyles = StyleSheet.create({
     constainer: {
         padding: 10,
     },

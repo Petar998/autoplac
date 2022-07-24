@@ -4,7 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import HomeStack from './homeStack';
 import CarsStack from './carsStack';
-import UsersStack from './userStack';
+import SellStack from './sellStack';
 
 const RootDrawerNavigator = createDrawerNavigator({
     Početna: {
@@ -15,6 +15,10 @@ const RootDrawerNavigator = createDrawerNavigator({
         screen: CarsStack,
         navigationOptions: { drawerIcon: <MaterialIcons name='directions-car' size={18} /> }
     },
+    Prodaje: {
+        screen: SellStack,
+        navigationOptions: { drawerIcon: <MaterialIcons name='shop' size={18} /> }
+    }
 }, {
     unmountInactiveRoutes: true,
     contentOptions: {

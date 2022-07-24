@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View, Modal, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { Alert, ScrollView, Text, TouchableOpacity, View, Modal, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import useAxios from '../../components/hooks/useAxios';
 import { UserContext } from "../../App";
@@ -8,6 +8,7 @@ import Axios from 'axios';
 import { carStyles } from "../../styles/carStyle";
 import ViewCar from "../../components/viewCar";
 import { modalStyles } from "../../styles/modalStyle";
+import { buttonStyles } from "../../styles/buttonStyles";
 
 const AllCars = ({ navigation }) => {
     const user = useContext(UserContext);
@@ -54,8 +55,8 @@ const AllCars = ({ navigation }) => {
     return (
         <View>
             <TouchableOpacity onPress={() => navigation.push('NewCar')}>
-                <View style={styles.button}>
-                    <Text style={styles.buttonText}>DODAJ</Text>
+                <View style={buttonStyles.button}>
+                    <Text style={buttonStyles.buttonText}>DODAJ</Text>
                     <AntDesign name="pluscircleo" size={18} />
                 </View>
             </TouchableOpacity>
@@ -92,19 +93,4 @@ const AllCars = ({ navigation }) => {
     )
 }
 
-const styles = StyleSheet.create({
-    button: {
-        padding: 5,
-        backgroundColor: '#B2B5B8',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '30%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-
-    },
-    buttonText: {
-        fontSize: 14
-    }
-})
 export default AllCars;

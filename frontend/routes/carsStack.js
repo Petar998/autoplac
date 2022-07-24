@@ -24,7 +24,7 @@ const screens = {
     EditCar: {
         screen: EditCar,
         navigationOptions: {
-            title: 'Izmeni vozilo',
+            title: 'Izmena podataka o vozilu',
         }
     },
 };

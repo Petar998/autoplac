@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, Image, StyleSheet, Text, TextInput, View } from "react-native";
 import { UserContext } from "../App";
 import { Formik } from "formik";
 import * as yup from 'yup';
@@ -35,8 +35,8 @@ const Login = () => {
     };
 
     return (
-        <View style={styles.loginContainer}>
-            <Header title='Autoplac' />
+        <View style={styles.loginPage}>
+            <Header />
             <Formik
                 initialValues={initialValues}
                 onSubmit={onFinish}
@@ -44,6 +44,10 @@ const Login = () => {
             >
                 {props => (
                     <View style={styles.loginForm}>
+                        <View style={styles.loginTitle}>
+                            <Image style={styles.logoImage} source={require('../assets/logo.jpg')} />
+                            <Text style={styles.logoText}>AUTOPLAC</Text>
+                        </View>
                         <TextInput
                             placeholder="Email"
                             onChangeText={props.handleChange('email')}
@@ -72,13 +76,19 @@ const Login = () => {
 }
 
 const styles = StyleSheet.create({
-    loginContainer: {
+    loginPage: {
         height: '100%',
     },
     loginForm: {
         height: '100%',
         justifyContent: 'center',
         paddingHorizontal: 10,
+    },
+    loginTitle: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20
     },
     inputField: {
         borderTopWidth: 1,
@@ -91,6 +101,14 @@ const styles = StyleSheet.create({
     errorText: {
         marginBottom: 5,
         color: '#ff0000'
+    },
+    logoImage: {
+        width: 35,
+        height: 35
+    },
+    logoText: {
+        fontSize: 22,
+        marginLeft: 5
     }
 })
 export default Login;

@@ -6,6 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import HomeStack from './homeStack';
 import CarsStack from './carsStack';
 import UsersStack from './userStack';
+import SellStack from './sellStack';
 
 const RootDrawerNavigator = createDrawerNavigator({
     Početna: {
@@ -19,6 +20,10 @@ const RootDrawerNavigator = createDrawerNavigator({
     Korisnici: {
         screen: UsersStack,
         navigationOptions: { drawerIcon: <FontAwesome name='user' size={18} /> }
+    },
+    Prodaje: {
+        screen: SellStack,
+        navigationOptions: { drawerIcon: <MaterialIcons name='shop' size={18} /> }
     }
 }, {
     unmountInactiveRoutes: true,

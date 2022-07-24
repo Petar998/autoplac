@@ -1,9 +1,9 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import React from 'react';
 import Header from '../components/header';
-import AllUsers from '../screens/user/allUsers';
-import NewUser from '../screens/user/newUser'
-import EditUser from '../screens/user/editUser';
+import AllUsers from '../screens/users/allUsers';
+import NewUser from '../screens/users/newUser'
+import EditUser from '../screens/users/editUser';
 
 const screens = {
     AllUsers: {
@@ -24,7 +24,7 @@ const screens = {
     EditUser: {
         screen: EditUser,
         navigationOptions: {
-            title: 'Izmeni korisnika',
+            title: 'Izmena podataka o korisniku',
         }
     },
 };

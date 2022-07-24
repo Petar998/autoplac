@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Alert, Keyboard, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Alert, Keyboard, Modal, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { UserContext } from '../../App';
 import useAxios from '../../components/hooks/useAxios';
-import { userStyles } from '../../styles/userStyle';
+import { listStyles } from '../../styles/listStyle';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import Axios from 'axios';
 import ViewUser from '../../components/viewUser';
+import { modalStyles } from '../../styles/modalStyle';
+import { buttonStyles } from '../../styles/buttonStyles';
 
 const allUsers = ({ navigation }) => {
     const user = useContext(UserContext);
@@ -33,7 +35,6 @@ const allUsers = ({ navigation }) => {
         }
     }
 
-
     const deleteUser = async (id) => {
         try {
             if (id !== user.data.id) {
@@ -56,18 +57,18 @@ const allUsers = ({ navigation }) => {
     return (
         <View>
             <TouchableOpacity onPress={() => navigation.push('NewUser')}>
-                <View style={styles.button}>
-                    <Text style={styles.buttonText}>DODAJ</Text>
+                <View style={buttonStyles.button}>
+                    <Text style={buttonStyles.buttonText}>DODAJ</Text>
                     <AntDesign name="pluscircleo" size={18} />
                 </View>
             </TouchableOpacity>
-            <ScrollView style={userStyles.constainer}>
-                {userList.length !== 0 ? userList.map((user) => <View key={user._id} style={userStyles.card}>
+            <ScrollView style={listStyles.constainer}>
+                {userList.length !== 0 ? userList.map((user) => <View key={user._id} style={listStyles.card}>
                     <View>
                         <Text>Ime i prezime: {user.firstName} {user.lastName}</Text>
                         <Text>Uloga: {user.role === 'admin' ? 'Admin' : 'Korisnik'}</Text>
                     </View>
-                    <View style={userStyles.action}>
+                    <View style={listStyles.action}>
                         <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.push('EditUser', { id: user._id })} />
                         <MaterialIcons name="delete" size={20} onPress={() => deleteUser(user._id)} />
                         <MaterialIcons name='remove-red-eye' size={20} onPress={() => viewInformation(user)} />
@@ -77,7 +78,7 @@ const allUsers = ({ navigation }) => {
             <Modal visible={openModal} animationType='slide'>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View>
-                        <View style={userStyles.xIcon}>
+                        <View style={modalStyles.xIcon}>
                             <MaterialIcons
                                 name='close'
                                 size={24}
@@ -91,21 +92,5 @@ const allUsers = ({ navigation }) => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    button: {
-        padding: 5,
-        backgroundColor: '#B2B5B8',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '30%',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-
-    },
-    buttonText: {
-        fontSize: 14
-    }
-})
 
 export default allUsers;

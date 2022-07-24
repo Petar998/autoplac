@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
-import { Formik, useFormik } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 import { formStyles } from "../../styles/formStyle";
 import DropDownPicker from 'react-native-dropdown-picker';
 
+const initValues = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    role: '',
+    newPassword: '',
+    confirmPassword: ''
+}
+
 const UserForm = ({ data, onSubmit }) => {
-    const initValues = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-        role: '',
-        newPassword: '',
-        confirmPassword: ''
-    }
     const [value, setValue] = useState(data ? data.role : '');
     const [open, setOpen] = useState(false);
     const [roleList, setRoleList] = useState([{
@@ -102,6 +103,7 @@ const UserForm = ({ data, onSubmit }) => {
                                     placeholder='Nova lozinka'
                                     secureTextEntry
                                 />
+                                <Text style={formStyles.errorText}></Text>
                                 <TextInput
                                     style={formStyles.inputField}
                                     onChangeText={props.handleChange('confirmPassword')}
@@ -110,6 +112,7 @@ const UserForm = ({ data, onSubmit }) => {
                                     placeholder='Potvrdi lozinku'
                                     secureTextEntry
                                 />
+                                <Text style={formStyles.errorText}></Text>
                             </View>
                         }
                         <DropDownPicker
