@@ -13,7 +13,8 @@ exports.getAll = async (req, res) => {
             .sort(sorter)
             .limit(Number(limit))
             .skip(Number(skip))
-            .lean();
+            .lean()
+            .populate('car buyer');
         return res.status(200).json({ count, items } || { count: 0, items: [] });
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -41,6 +42,14 @@ exports.getById = async (req, res) => {
 exports.post = async (req, res) => {
     try {
         const item = new Sell(req.body);
+        const data = req.body;
+        let buyer = new Buyer({
+            firstName: data.firstName, lastName: data.lastName, personalID: data.personalID,
+            place: data.place, postalCode: data.postalCode, street: data.street, streetNumber: data.streetNumber, phone: data.phone
+        });
+        item.buyer = buyer._id;
+        await buyer.save()
+        await Car.updateOne({ _id: data.car }, { sold: true })
         await item.save();
         return res.status(201).json({ message: 'Created' });
     } catch (error) {
@@ -59,6 +68,8 @@ exports.delete = async (req, res) => {
         if (!item) {
             return res.status(401).json({ message: 'Does not exist.' });
         }
+        await Buyer.deleteOne({ _id: item.buyer });
+        await Car.updateOne({ _id: item.car }, { sold: false });
         await item.remove();
         return res.status(200).json({ message: 'Removed' });
     } catch (error) {

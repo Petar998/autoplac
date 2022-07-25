@@ -10,7 +10,8 @@ const NewSell = ({ navigation }) => {
     const [cars, fetchCars] = useAxios('', [], user.data.token, 'get');
 
     useEffect(() => {
-        fetchCars('http://10.0.2.2:3333/cars', []);
+        const filter = { sold: false }
+        fetchCars(`http://10.0.2.2:3333/cars?filter=${JSON.stringify(filter)}`, []);
         if (cars && cars.data && cars.data.items) {
             setCarList(cars.data.items);
         }

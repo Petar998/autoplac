@@ -8,6 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { listStyles } from '../../styles/listStyle';
 import { buttonStyles } from '../../styles/buttonStyles';
 import { modalStyles } from '../../styles/modalStyle';
+import moment from 'moment';
 
 const AllSells = ({ navigation }) => {
     const user = useContext(UserContext);
@@ -59,8 +60,11 @@ const AllSells = ({ navigation }) => {
                 </View>
             </TouchableOpacity>
             <ScrollView style={listStyles.constainer}>
-                {sellList.length !== 0 ? sellList.map((sell) => <View key={sell._id} style={sellStyles.card}>
+                {sellList.length !== 0 ? sellList.map((sell) => <View key={sell._id} style={listStyles.card}>
                     <View>
+                        <Text>Vozilo: {sell.car.brand} {sell.car.model}</Text>
+                        <Text>Kupac: {sell.buyer.firstName} {sell.buyer.lastName}</Text>
+                        <Text>Datum: {moment(sell.sellDate).format('DD.MM.YYYY')}</Text>
                     </View>
                     <View style={listStyles.action}>
                         <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.push('EditSell', { id: sell._id })} />

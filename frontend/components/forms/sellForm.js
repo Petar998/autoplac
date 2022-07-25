@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import * as yup from 'yup';
-import { Formik } from 'formik';
+import { Formik, useField, useFormik } from 'formik';
 import { formStyles } from '../../styles/formStyle';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const initValues = {
     car: '',
@@ -16,10 +16,11 @@ const initValues = {
     street: '',
     streetNumber: '',
     phone: '',
-    sellDate: ''
+    sellDate: new Date()
 }
 
 const SellForm = ({ data, cars, onSubmit }) => {
+    const formik = useFormik({ initialValues: initValues });
     const [value, setValue] = useState(data ? data.car : '');
     const [open, setOpen] = useState(false);
     const [carList, setCarList] = useState(cars.map((car) => {
@@ -27,7 +28,9 @@ const SellForm = ({ data, cars, onSubmit }) => {
             label: car.brand + ' ' + car.model,
             value: car._id
         }
-    }))
+    }));
+    const [openModal, setOpenModal] = useState(false)
+    const [date, setDate] = useState(data ? newDate(data.sellDate) : new Date())
 
     const reviewSchema = yup.object({
         car: yup.string()
@@ -58,6 +61,19 @@ const SellForm = ({ data, cars, onSubmit }) => {
         onSubmit(values)
     }
 
+    const openCalendar = () => {
+        setOpenModal(true);
+    }
+
+    const onChange = (value, props) => {
+        if (value.nativeEvent && value.nativeEvent.timestamp) {
+            setDate(new Date(value.nativeEvent.timestamp))
+            setOpenModal(false);
+            formik.setFieldValue('sellDate', new Date(value.nativeEvent.timestamp))
+            props.handleChange('sellDate')
+        }
+    }
+
     return (
         <ScrollView>
             <Formik
@@ -70,6 +86,7 @@ const SellForm = ({ data, cars, onSubmit }) => {
                         style={formStyles.form}
                     >
                         <DropDownPicker
+                            listMode='MODAL'
                             style={formStyles.formField}
                             onChangeValue={props.handleChange('car')}
                             open={open}
@@ -148,6 +165,13 @@ const SellForm = ({ data, cars, onSubmit }) => {
                             placeholder='Kontakt telefon'
                         />
                         <Text style={formStyles.errorText}>{props.touched.phone && props.errors.phone && 'Ovo polje je obavezno!'}</Text>
+                        <Button title='Odaberi datum' onPress={openCalendar} />
+                        {openModal && <DateTimePicker
+                            value={date}
+                            onChange={(value) => onChange(value, props)}
+                            onTouchEnd={props.handleBlur('sellDate')}
+                        />}
+                        <Text style={formStyles.errorText}>{props.touched.sellDate && props.errors.sellDate && 'Ovo polje je obavezno!'}</Text>
                         <Button color='#B2B5B8' onPress={props.handleSubmit} title={data ? 'IZMENI' : 'UNESI'} />
                     </View>
                 )}

@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const indexRouter = require("./routes/index");
 const loginRoutes = require("./routes/login_routes");
 const carRoutes = require("./routes/cars_routes");
 const userRoutes = require('./routes/user_routes');
@@ -23,6 +22,7 @@ app.use(cors());
 loginRoutes(app);
 carRoutes(app);
 userRoutes(app);
+sellRoutes(app);
 // app.use("/cars", carRouter);
 // app.use("/sells", sellRouter);
 // app.use("/complaints", complaintRouter);

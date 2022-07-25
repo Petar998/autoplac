@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Alert, DevSettings } from 'react-native';
+import { Alert, DevSettings, LogBox } from 'react-native';
 import Login from './screens/login';
 import Axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -63,6 +62,7 @@ const App = () => {
     }
   }, [setLoggedIn, user]);
 
+  LogBox.ignoreAllLogs(true);
   return (
     <UserContext.Provider value={{ isLoggedIn, handleLogin, setLoggedIn, data: user }}>
       {isLoggedIn && user?.role === 'admin' ? <AdminNavigator /> : <UserNavigator />
