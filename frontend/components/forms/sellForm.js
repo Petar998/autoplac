@@ -16,13 +16,15 @@ const initValues = {
     street: '',
     streetNumber: '',
     phone: '',
-    sellDate: new Date()
+    sellDate: new Date(),
+    existBuyer: ''
 }
 
-const SellForm = ({ data, cars, onSubmit }) => {
+const SellForm = ({ data, cars, onSubmit, buyers }) => {
     const formik = useFormik({ initialValues: initValues });
-    const [value, setValue] = useState(data ? data.car : '');
+    const [value, setValue] = useState(data ? data.car._id : '');
     const [open, setOpen] = useState(false);
+    const [openTwo, setOpenTwo] = useState(false);
     const [carList, setCarList] = useState(cars.map((car) => {
         return {
             label: car.brand + ' ' + car.model,
@@ -30,7 +32,14 @@ const SellForm = ({ data, cars, onSubmit }) => {
         }
     }));
     const [openModal, setOpenModal] = useState(false)
-    const [date, setDate] = useState(data ? newDate(data.sellDate) : new Date())
+    const [date, setDate] = useState(data ? new Date(data.sellDate) : new Date())
+    const [buyerValue, setBuyerValue] = useState(data ? data.buyer._id : '');
+    const [buyerList, setBuyerList] = useState(buyers.map((buyer) => {
+        return {
+            label: buyer.firstName + ' ' + buyer.lastName + ' ' + buyer.personalID,
+            value: buyer._id
+        }
+    }));
 
     const reviewSchema = yup.object({
         car: yup.string()
@@ -52,12 +61,20 @@ const SellForm = ({ data, cars, onSubmit }) => {
         phone: yup.string()
             .required(),
         sellDate: yup.date()
-            .required()
+            .required(),
+        existBuyer: yup.string()
     });
+
+    if (data) {
+        const buyer = data.buyer;
+        delete buyer._id;
+        data = { ...data, ...buyer, car: data.car._id }
+    }
 
     let initialValues = data ? data : initValues;
 
     const onFinish = (values) => {
+        values.sellDate = date
         onSubmit(values)
     }
 
@@ -72,6 +89,18 @@ const SellForm = ({ data, cars, onSubmit }) => {
             formik.setFieldValue('sellDate', new Date(value.nativeEvent.timestamp))
             props.handleChange('sellDate')
         }
+    }
+
+    const getBuyerData = (value, props) => {
+        const selectedBuyer = buyers.filter((buyer) => buyer._id === value.value);
+        props.values.firstName = selectedBuyer[0].firstName;
+        props.values.lastName = selectedBuyer[0].lastName;
+        props.values.personalID = selectedBuyer[0].personalID;
+        props.values.place = selectedBuyer[0].place;
+        props.values.postalCode = selectedBuyer[0].postalCode;
+        props.values.street = selectedBuyer[0].street;
+        props.values.streetNumber = selectedBuyer[0].streetNumber;
+        props.values.phone = selectedBuyer[0].phone;
     }
 
     return (
@@ -99,6 +128,20 @@ const SellForm = ({ data, cars, onSubmit }) => {
                             zIndex={10}
                         />
                         <Text style={formStyles.errorText}>{props.touched.role && props.errors.role && 'Ovo polje je obavezno!'}</Text>
+                        <DropDownPicker
+                            listMode='MODAL'
+                            style={formStyles.formField}
+                            onChangeValue={props.handleChange('existBuyer')}
+                            onSelectItem={(value) => getBuyerData(value, props)}
+                            open={openTwo}
+                            value={buyerValue}
+                            items={buyerList}
+                            setOpen={setOpenTwo}
+                            setValue={setBuyerValue}
+                            setItems={setBuyerList}
+                            placeholder='Postojeći kupac'
+                            zIndex={9}
+                        />
                         <Text style={styles.buyerTitle}>PODACI O KUPCU:</Text>
                         <TextInput
                             style={formStyles.inputField}
@@ -169,6 +212,7 @@ const SellForm = ({ data, cars, onSubmit }) => {
                         {openModal && <DateTimePicker
                             value={date}
                             onChange={(value) => onChange(value, props)}
+                            onTouchCancel={() => setOpenModal(false)}
                             onTouchEnd={props.handleBlur('sellDate')}
                         />}
                         <Text style={formStyles.errorText}>{props.touched.sellDate && props.errors.sellDate && 'Ovo polje je obavezno!'}</Text>
@@ -182,7 +226,7 @@ const SellForm = ({ data, cars, onSubmit }) => {
 
 const styles = StyleSheet.create({
     buyerTitle: {
-        marginBottom: 10
+        marginVertical: 10
     }
 })
 export default SellForm

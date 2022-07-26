@@ -28,7 +28,7 @@ exports.getById = async (req, res) => {
         });
     }
     try {
-        const sell = await Sell.findById({ _id: req.params.id });
+        const sell = await Sell.findById({ _id: req.params.id }).populate('buyer car');
         if (!sell) {
             return res.status(401).json({ message: 'Sell does not exist.' });
         }
@@ -43,12 +43,16 @@ exports.post = async (req, res) => {
     try {
         const item = new Sell(req.body);
         const data = req.body;
-        let buyer = new Buyer({
-            firstName: data.firstName, lastName: data.lastName, personalID: data.personalID,
-            place: data.place, postalCode: data.postalCode, street: data.street, streetNumber: data.streetNumber, phone: data.phone
-        });
-        item.buyer = buyer._id;
-        await buyer.save()
+        if (!data.existBuyer) {
+            let buyer = new Buyer({
+                firstName: data.firstName, lastName: data.lastName, personalID: data.personalID,
+                place: data.place, postalCode: data.postalCode, street: data.street, streetNumber: data.streetNumber, phone: data.phone
+            });
+            item.buyer = buyer._id;
+            await buyer.save()
+        } else {
+            item.buyer = data.existBuyer
+        }
         await Car.updateOne({ _id: data.car }, { sold: true })
         await item.save();
         return res.status(201).json({ message: 'Created' });
@@ -83,9 +87,33 @@ exports.update = async (req, res) => {
     }
     try {
         const id = req.params.id;
-        await Sell.updateOne({ _id: id }, { ...req.body });
+        const sell = await Sell.findById(id);
+        const buyerData = {
+            _id: sell.buyer,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            personalID: req.body.personalID,
+            place: req.body.place,
+            postalCode: req.body.postalCode,
+            street: req.body.street,
+            streetNumber: req.body.streetNumber,
+            phone: req.body.phone
+        }
+
+        if (req.body.existBuyer && req.body.existBuyer !== sell.buyer) {
+            await Buyer.updateOne({ _id: req.body.existBuyer }, { ...buyerData });
+        } else {
+            await Buyer.updateOne({ _id: sell.buyer }, { ...buyerData });
+        }
+
+        if (sell.car !== req.body.car) {
+            await Car.updateOne({ _id: sell.car }, { sold: false });
+            await Car.updateOne({ _id: req.body.car }, { sold: true });
+        }
+        await Sell.updateOne({ _id: id }, { ...req.body, buyer: sell.buyer });
         return res.status(200).json({ message: 'Updated' });
     } catch (error) {
+        console.log('server err', error)
         return res.status(500).json({ message: error.message });
     }
 };

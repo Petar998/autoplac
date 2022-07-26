@@ -5,6 +5,7 @@ const loginRoutes = require("./routes/login_routes");
 const carRoutes = require("./routes/cars_routes");
 const userRoutes = require('./routes/user_routes');
 const sellRoutes = require("./routes/sell_routes");
+const buyerRoutes = require("./routes/buyer_routes");
 const complaintRoutes = require("./routes/complaints");
 const cors = require('cors')
 const app = express();
@@ -23,7 +24,6 @@ loginRoutes(app);
 carRoutes(app);
 userRoutes(app);
 sellRoutes(app);
-// app.use("/cars", carRouter);
-// app.use("/sells", sellRouter);
+buyerRoutes(app);
 // app.use("/complaints", complaintRouter);
 app.listen(3333);

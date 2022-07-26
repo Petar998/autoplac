@@ -9,6 +9,7 @@ import { listStyles } from '../../styles/listStyle';
 import { buttonStyles } from '../../styles/buttonStyles';
 import { modalStyles } from '../../styles/modalStyle';
 import moment from 'moment';
+import ViewSell from '../../components/viewSell';
 
 const AllSells = ({ navigation }) => {
     const user = useContext(UserContext);
@@ -83,6 +84,7 @@ const AllSells = ({ navigation }) => {
                                 onPress={() => setOpenModal(false)}
                             />
                         </View>
+                        <ViewSell sell={chosenSell} />
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>

@@ -4,10 +4,10 @@ const { permit } = require('../middleware/role_check');
 
 module.exports = (app) => {
     app.route('/sells')
-        .get(jwt.checkToken, permit(['admin']), controller.getAll)
-        .post(jwt.checkToken, permit(['admin']), controller.post);
+        .get(jwt.checkToken, permit(['admin', 'user']), controller.getAll)
+        .post(jwt.checkToken, permit(['admin', 'user']), controller.post);
     app.route('/sells/:id')
-        .get(jwt.checkToken, permit(['admin']), controller.getById)
-        .put(jwt.checkToken, permit(['admin']), controller.update)
-        .delete(jwt.checkToken, permit(['admin']), controller.delete);
+        .get(jwt.checkToken, permit(['admin', 'user']), controller.getById)
+        .put(jwt.checkToken, permit(['admin', 'user']), controller.update)
+        .delete(jwt.checkToken, permit(['admin', 'user']), controller.delete);
 }

@@ -8,14 +8,13 @@ import Axios from 'axios';
 const NewSell = ({ navigation }) => {
     const user = useContext(UserContext);
     const [cars, fetchCars] = useAxios('', [], user.data.token, 'get');
+    const [buyers, fetchBuyers] = useAxios('', [], user.data.token, 'get')
 
     useEffect(() => {
         const filter = { sold: false }
         fetchCars(`http://10.0.2.2:3333/cars?filter=${JSON.stringify(filter)}`, []);
-        if (cars && cars.data && cars.data.items) {
-            setCarList(cars.data.items);
-        }
-    }, [fetchCars]);
+        fetchBuyers('http://10.0.2.2:3333/buyers', []);
+    }, [fetchCars, fetchBuyers]);
 
     const onSubmit = async (data) => {
         try {
@@ -31,8 +30,8 @@ const NewSell = ({ navigation }) => {
 
     return (
         <View>
-            {cars && cars.data && cars.data.items &&
-                <SellForm cars={cars.data.items} onSubmit={onSubmit} />}
+            {cars && cars.data && cars.data.items && buyers?.data?.items &&
+                <SellForm cars={cars.data.items} onSubmit={onSubmit} buyers={buyers.data.items} />}
         </View>
     )
 }
