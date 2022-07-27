@@ -125,6 +125,11 @@ const SellForm = ({ data, cars, onSubmit, buyers }) => {
                             setValue={setValue}
                             setItems={setCarList}
                             placeholder='Izaberite vozilo'
+                            searchable={true}
+                            searchPlaceholder='Pretraga'
+                            translation={{
+                                NOTHING_TO_SHOW: "Nema rezultata!"
+                            }}
                             zIndex={10}
                         />
                         <Text style={formStyles.errorText}>{props.touched.role && props.errors.role && 'Ovo polje je obavezno!'}</Text>
@@ -140,6 +145,11 @@ const SellForm = ({ data, cars, onSubmit, buyers }) => {
                             setValue={setBuyerValue}
                             setItems={setBuyerList}
                             placeholder='Postojeći kupac'
+                            searchable={true}
+                            searchPlaceholder='Pretraga'
+                            translation={{
+                                NOTHING_TO_SHOW: "Nema rezultata!"
+                            }}
                             zIndex={9}
                         />
                         <Text style={styles.buyerTitle}>PODACI O KUPCU:</Text>

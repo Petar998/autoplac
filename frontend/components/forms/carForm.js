@@ -155,6 +155,9 @@ const CarForm = ({ data, onSubmit }) => {
                                 placeholder='Izaberite marku'
                                 searchable={true}
                                 searchPlaceholder='Pretraga'
+                                translation={{
+                                    NOTHING_TO_SHOW: "Nema rezultata!"
+                                }}
                                 zIndex={10}
                             />
                             <Text style={formStyles.errorText}>{props.touched.brand && props.errors.brand && 'Ovo polje je obavezno!'}</Text>
@@ -171,6 +174,9 @@ const CarForm = ({ data, onSubmit }) => {
                                 placeholder='Izaberite model'
                                 searchable={true}
                                 searchPlaceholder='Pretraga'
+                                translation={{
+                                    NOTHING_TO_SHOW: "Nema rezultata!"
+                                }}
                                 zIndex={9}
                             />
                             <Text style={formStyles.errorText}>{props.touched.model && props.errors.model && 'Ovo polje je obavezno!'}</Text>
@@ -208,8 +214,6 @@ const CarForm = ({ data, onSubmit }) => {
                                 setValue={setValueFour}
                                 setItems={setBodyList}
                                 placeholder='Karoserija'
-                                searchable={true}
-                                searchPlaceholder='Pretraga'
                                 zIndex={7}
                             />
                             <Text style={formStyles.errorText}>{props.touched.body && props.errors.body && 'Ovo polje je obavezno!'}</Text>
@@ -224,8 +228,6 @@ const CarForm = ({ data, onSubmit }) => {
                                 setValue={setValueFive}
                                 setItems={setFuelList}
                                 placeholder='Gorivo'
-                                searchable={true}
-                                searchPlaceholder='Pretraga'
                                 zIndex={6}
                             />
                             <Text style={formStyles.errorText}>{props.touched.fuel && props.errors.fuel && 'Ovo polje je obavezno!'}</Text>
@@ -240,8 +242,6 @@ const CarForm = ({ data, onSubmit }) => {
                                 setValue={setValueSix}
                                 setItems={setSeatList}
                                 placeholder='Broj sedišta'
-                                searchable={true}
-                                searchPlaceholder='Pretraga'
                                 zIndex={5}
                             />
                             <Text style={formStyles.errorText}>{props.touched.seat && props.errors.seat && 'Ovo polje je obavezno!'}</Text>
