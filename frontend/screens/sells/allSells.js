@@ -63,7 +63,7 @@ const AllSells = ({ navigation }) => {
             <ScrollView style={listStyles.constainer}>
                 {sellList.length !== 0 ? sellList.map((sell) => <View key={sell._id} style={listStyles.card}>
                     <View>
-                        <Text>Vozilo: {sell.car.brand} {sell.car.model}</Text>
+                        <Text>Vozilo: {sell?.car?.brand} {sell?.car?.model}</Text>
                         <Text>Kupac: {sell.buyer.firstName} {sell.buyer.lastName}</Text>
                         <Text>Datum: {moment(sell.sellDate).format('DD.MM.YYYY')}</Text>
                     </View>

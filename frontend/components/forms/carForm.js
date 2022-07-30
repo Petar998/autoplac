@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Button, ScrollView, Text, TextInput, View } from "react-native";
+import { Button, Image, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import Axios from 'axios';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Formik, useFormik } from "formik";
+import { Formik } from "formik";
 import { formStyles } from "../../styles/formStyle";
 import * as yup from 'yup';
 import { fuels } from "../data/fuels";
 import { bodies } from "../data/carBodies";
 import { seats } from "../data/seats";
 import { years } from "../data/years";
+
+import * as ImagePicker from "expo-image-picker";
+import * as ImageManipulator from "expo-image-manipulator";
+import * as FileSystem from 'expo-file-system'
 
 const initValues = {
     code: '',
@@ -46,6 +50,7 @@ const CarForm = ({ data, onSubmit }) => {
     const [fuelList, setFuelList] = useState(fuels);
     const [seatList, setSeatList] = useState(seats);
     const [yearList, setYearList] = useState(years);
+    const [images, setImages] = useState(data && data.image ? [data.image] : []);
 
     const reviewSchema = yup.object({
         code: yup.string()
@@ -112,6 +117,7 @@ const CarForm = ({ data, onSubmit }) => {
     }
 
     const onFinish = (values) => {
+        values.insertedImage = images[0];
         onSubmit(values)
     }
 
@@ -121,6 +127,25 @@ const CarForm = ({ data, onSubmit }) => {
             getModels(chosenBrand[0].brandID)
         }
     }, [value, brands])
+
+
+    const openImageLibrary = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            quality: 1,
+        });
+
+        if (result?.cancelled === false && result?.uri) {
+            const fileInfo = await getFileInfo(result.uri);
+            console.log('fiele', fileInfo);
+            setImages([result]);
+        }
+    };
+
+    const getFileInfo = async (fileURI) => {
+        const fileInfo = await FileSystem.getInfoAsync(fileURI);
+        return fileInfo;
+    };
 
     return (
         <ScrollView>
@@ -279,6 +304,13 @@ const CarForm = ({ data, onSubmit }) => {
                                 placeholder='Zemlja uvoza'
                             />
                             <Text style={formStyles.errorText}>{props.touched.importCountry && props.errors.importCountry && 'Ovo polje je obavezno!'}</Text>
+                            <Button onPress={openImageLibrary} title='ODABERI SLIKU' />
+                            <View style={styles.imageContainer}>
+                                {images.length !== 0 && images.map((image, index) => <Image style={styles.image} key={index} source={{ uri: image?.uri }} />)}
+                                <View>
+                                    {images.length !== 0 && <Button onPress={() => setImages([])} title='OBRIŠI SLIKU' />}
+                                </View>
+                            </View>
                             <Button color='#B2B5B8' onPress={props.handleSubmit} title={data ? 'IZMENI' : 'UNESI'} />
                         </View>
                     )}
@@ -287,5 +319,17 @@ const CarForm = ({ data, onSubmit }) => {
         </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    image: {
+        width: '100%',
+        height: 150,
+        padding: 10,
+        marginBottom: 5
+    },
+    imageContainer: {
+        marginVertical: 10
+    }
+})
 
 export default CarForm;

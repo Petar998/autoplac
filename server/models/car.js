@@ -14,6 +14,7 @@ const carSchema = new mongoose.Schema({
     color: { type: String },
     importCountry: { type: String },
     sold: { type: Boolean },
+    image: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
 })
 
 module.exports = mongoose.model('Car', carSchema)

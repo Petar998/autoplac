@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Alert, ScrollView, Text, TouchableOpacity, View, Modal, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { Alert, ScrollView, Text, TouchableOpacity, View, Modal, Keyboard, TouchableWithoutFeedback, Image } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import useAxios from '../../components/hooks/useAxios';
 import { UserContext } from "../../App";
@@ -61,19 +61,24 @@ const AllCars = ({ navigation }) => {
                 </View>
             </TouchableOpacity>
             <ScrollView style={carStyles.constainer}>
-                {carList.length !== 0 ? carList.map((car) => <View key={car._id} style={carStyles.card}>
-                    <View>
-                        <Text>Šifra vozila: {car.code}</Text>
-                        <Text>{car.brand} {car.model}</Text>
-                        <Text>{parseFloat(car.price).toFixed(2)} €</Text>
-                        <Text>{car.year}</Text>
+                {carList.length !== 0 ? carList.map((car) =>
+                    <View style={car.sold ? carStyles.cardSold : carStyles.card}>
+                        {car.image && car.image.uri && <Image style={carStyles.carImage} key={car.image._id} source={{ uri: car.image.uri }} />}
+                        <View key={car._id} style={carStyles.carData}>
+                            <View>
+                                <Text>Šifra vozila: {car.code}</Text>
+                                <Text>{car.brand} {car.model}</Text>
+                                <Text>{parseFloat(car.price).toFixed(2)} €</Text>
+                                <Text>{car.year}</Text>
+                            </View>
+                            <View style={carStyles.action}>
+                                <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.push('EditCar', { id: car._id })} />
+                                <MaterialIcons name="delete" size={20} onPress={() => deleteCar(car._id)} />
+                                <MaterialIcons name='remove-red-eye' size={20} onPress={() => viewInformation(car)} />
+                            </View>
+                        </View>
                     </View>
-                    <View style={carStyles.action}>
-                        <MaterialIcons name="mode-edit" size={20} onPress={() => navigation.push('EditCar', { id: car._id })} />
-                        <MaterialIcons name="delete" size={20} onPress={() => deleteCar(car._id)} />
-                        <MaterialIcons name='remove-red-eye' size={20} onPress={() => viewInformation(car)} />
-                    </View>
-                </View>) : <Text>NEMA PODATAKA</Text>}
+                ) : <Text>NEMA PODATAKA</Text>}
             </ScrollView>
             <Modal visible={openModal} animationType='slide'>
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
