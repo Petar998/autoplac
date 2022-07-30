@@ -33,17 +33,17 @@ const AllSells = ({ navigation }) => {
                 setSellList(response.data.items);
             }
         } catch (error) {
-            Alert.alert('Greška!', 'Problem sa učitavanjem prodaja', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa učitavanjem prodaja.', [{ text: "OK" }]);
         }
     }
 
     const deleteSell = async (id) => {
         try {
             await Axios.delete(`http://10.0.2.2:3333/sells/${id}`, { withCredentials: false, headers: { Authorization: `Bearer ${user.data.token}` } });
-            Alert.alert('Poruka!', 'Prodaja je obrisana.', [{ text: "OK" }]);
+            Alert.alert('Poruka', 'Prodaja je obrisana.', [{ text: "OK" }]);
             refreshSellList();
         } catch (err) {
-            Alert.alert('Greška!', 'Problem sa brisanjem prodaje.', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa brisanjem prodaje.', [{ text: "OK" }]);
         }
     };
 

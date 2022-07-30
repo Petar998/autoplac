@@ -21,7 +21,7 @@ const EditUser = ({ navigation }) => {
             if (
                 (data.newPassword !== '' && data.confirmPassword !== '' && data.newPassword !== data.confirmPassword)
             ) {
-                Alert.alert('Greška!', 'Nova šifra mora biti potvrđena.', [{ text: "OK" }]);
+                Alert.alert('Greška', 'Nova šifra mora biti potvrđena.', [{ text: "OK" }]);
             } else {
                 if (!data.newPassword && !data.confirmPassword) {
                     delete data.newPassword;
@@ -34,7 +34,7 @@ const EditUser = ({ navigation }) => {
             }
         } catch (error) {
             console.log('edit user error ', error);
-            Alert.alert('Greška!', 'Problem sa izmenom korisnika.', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa izmenom korisnika.', [{ text: "OK" }]);
         }
     }
 

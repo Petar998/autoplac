@@ -13,5 +13,17 @@ export const buttonStyles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 14
+    },
+    buttonSold: {
+        backgroundColor: '#ffc2b3',
+        padding: 5,
+    },
+    buttonOnStock: {
+        backgroundColor: '#e6e6e6',
+        padding: 5,
+    },
+    buttonAll: {
+        padding: 5,
+        backgroundColor: '#B2B5B8',
     }
 })

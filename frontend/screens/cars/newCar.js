@@ -15,7 +15,7 @@ const NewCar = ({ navigation }) => {
             navigation.push('AllCars')
         } catch (error) {
             console.log('new car error ', error);
-            Alert.alert('Greška!', 'Problem sa dodavanjem novog vozila.', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa dodavanjem novog vozila.', [{ text: "OK" }]);
         }
     }
 

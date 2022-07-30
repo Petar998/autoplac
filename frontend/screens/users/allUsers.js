@@ -31,7 +31,7 @@ const allUsers = ({ navigation }) => {
                 setUserList(response.data.items);
             }
         } catch (error) {
-            Alert.alert('Greška!', 'Problem sa učitavanjem korisnika', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa učitavanjem korisnika.', [{ text: "OK" }]);
         }
     }
 
@@ -45,7 +45,7 @@ const allUsers = ({ navigation }) => {
                 Alert.alert('Greška!', 'Ne možete obrisati ovog korisnika.', [{ text: "OK" }]);
             }
         } catch (err) {
-            Alert.alert('Greška!', 'Problem sa brisanjem korisnika.', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa brisanjem korisnika.', [{ text: "OK" }]);
         }
     };
 

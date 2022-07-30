@@ -16,7 +16,7 @@ const NewUser = ({ navigation }) => {
             navigation.push('AllUsers')
         } catch (error) {
             console.log('new user error ', error);
-            Alert.alert('Greška!', 'Problem sa dodavanjem novog korisnika.', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa dodavanjem novog korisnika.', [{ text: "OK" }]);
         }
     }
     return (

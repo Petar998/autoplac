@@ -1,7 +1,11 @@
 import { StyleSheet } from "react-native";
 
 export const carStyles = StyleSheet.create({
-    constainer: {
+    content: {
+        flex: 1,
+        paddingBottom: 10
+    },
+    container: {
         padding: 10,
     },
     card: {
@@ -28,7 +32,12 @@ export const carStyles = StyleSheet.create({
     },
     carImage: {
         width: '100%',
-        height: 150,
-        marginBottom: 5
+        height: 130,
+        marginBottom: 5,
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 15
+    }
 });

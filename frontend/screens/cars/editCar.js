@@ -24,7 +24,7 @@ const EditCar = ({ navigation }) => {
             navigation.push('AllCars')
         } catch (error) {
             console.log('edit car error ', error);
-            Alert.alert('Greška!', 'Problem sa izmenom vozila.', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa izmenom vozila.', [{ text: "OK" }]);
         }
     }
 

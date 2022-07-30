@@ -24,7 +24,7 @@ const NewSell = ({ navigation }) => {
             navigation.push('AllSells')
         } catch (error) {
             console.log('new sell error ', error);
-            Alert.alert('Greška!', 'Problem sa dodavanjem podataka o prodaji.', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa dodavanjem podataka o prodaji.', [{ text: "OK" }]);
         }
     }
 

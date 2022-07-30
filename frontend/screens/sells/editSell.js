@@ -28,7 +28,7 @@ const EditSell = ({ navigation }) => {
             navigation.push('AllSells')
         } catch (error) {
             console.log('edit sell error ', error);
-            Alert.alert('Greška!', 'Problem sa izmenom prodaje.', [{ text: "OK" }]);
+            Alert.alert('Greška', 'Problem sa izmenom prodaje.', [{ text: "OK" }]);
         }
     }
 
