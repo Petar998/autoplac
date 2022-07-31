@@ -17,5 +17,8 @@ export const modalStyles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'flex-end'
+    },
+    lastBuyerData: {
+        marginBottom: 10
     }
 })

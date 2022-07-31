@@ -6,9 +6,10 @@ import { UserContext } from "../../App";
 import { MaterialIcons } from '@expo/vector-icons';
 import Axios from 'axios';
 import { carStyles } from "../../styles/carStyle";
-import ViewCar from "../../components/viewCar";
+import ViewCar from "../../components/views/viewCar";
 import { modalStyles } from "../../styles/modalStyle";
 import { buttonStyles } from "../../styles/buttonStyles";
+import { listStyles } from "../../styles/listStyle";
 
 const AllCars = ({ navigation }) => {
     const user = useContext(UserContext);
@@ -92,7 +93,7 @@ const AllCars = ({ navigation }) => {
     }
 
     return (
-        <View style={carStyles.content}>
+        <View style={listStyles.content}>
             <TouchableOpacity onPress={() => navigation.push('NewCar')}>
                 <View style={buttonStyles.button}>
                     <Text style={buttonStyles.buttonText}>DODAJ</Text>
@@ -116,7 +117,7 @@ const AllCars = ({ navigation }) => {
                     </View>
                 </TouchableOpacity>
             </View>
-            <ScrollView style={carStyles.container}>
+            <ScrollView style={listStyles.container}>
                 {carList.length !== 0 ? carList.map((car) =>
                     <View style={car.sold ? carStyles.cardSold : carStyles.card}>
                         {car.image && car.image.uri && <Image style={carStyles.carImage} key={car.image._id} source={{ uri: car.image.uri }} />}

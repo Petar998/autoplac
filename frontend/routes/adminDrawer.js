@@ -7,6 +7,7 @@ import HomeStack from './homeStack';
 import CarsStack from './carsStack';
 import UsersStack from './userStack';
 import SellStack from './sellStack';
+import ComplaintsStack from './complaintStack';
 
 const RootDrawerNavigator = createDrawerNavigator({
     Početna: {
@@ -24,6 +25,10 @@ const RootDrawerNavigator = createDrawerNavigator({
     Prodaje: {
         screen: SellStack,
         navigationOptions: { drawerIcon: (tabInfo) => <MaterialIcons name='shop' size={18} color={tabInfo.tintColor} /> }
+    },
+    Reklamacije: {
+        screen: ComplaintsStack,
+        navigationOptions: { drawerIcon: (tabInfo) => <MaterialIcons name='quick-contacts-dialer' size={18} color={tabInfo.tintColor} /> }
     }
 }, {
     unmountInactiveRoutes: true,

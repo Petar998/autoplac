@@ -1,7 +1,7 @@
 import moment from 'moment'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { modalStyles } from '../styles/modalStyle'
+import { modalStyles } from '../../styles/modalStyle'
 
 const ViewSell = ({ sell }) => {
     return (
@@ -14,7 +14,7 @@ const ViewSell = ({ sell }) => {
                 <Text style={styles.buyerHeader}>Podaci o kupcu:</Text>
                 <Text>Ime i prezime: {sell.buyer.firstName} {sell.buyer.lastName}</Text>
                 <Text>Adresa: {sell.buyer.street} {sell.buyer.streetNumber}, {sell.buyer.postalCode} {sell.buyer.place}</Text>
-                <Text>Kontakt telefon: {sell.buyer.phone}</Text>
+                <Text style={modalStyles.lastBuyerData}>Kontakt telefon: {sell.buyer.phone}</Text>
                 <Text>Datum prodaje: {moment(sell.sellDate).format('DD.MM.YYYY')}</Text>
             </View>
         </View>

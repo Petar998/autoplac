@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 const complaintSchema = new Schema(
     {
-        kupac: { type: mongoose.Schema.Types.ObjectId, ref: 'Buyer' },
-        vozilo: { type: mongoose.Schema.Types.ObjectId, ref: 'Car' },
-        datumReklamacije: { type: Date },
-        opis: { type: String }
+        buyer: { type: mongoose.Schema.Types.ObjectId, ref: 'Buyer' },
+        car: { type: mongoose.Schema.Types.ObjectId, ref: 'Car' },
+        complaintDate: { type: Date },
+        description: { type: String },
+        rejected: { type: Boolean },
     }
 )
 

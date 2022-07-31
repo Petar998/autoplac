@@ -132,7 +132,7 @@ const SellForm = ({ data, cars, onSubmit, buyers }) => {
                             }}
                             zIndex={10}
                         />
-                        <Text style={formStyles.errorText}>{props.touched.role && props.errors.role && 'Ovo polje je obavezno!'}</Text>
+                        <Text style={formStyles.errorText}>{props.touched.car && props.errors.car && 'Ovo polje je obavezno!'}</Text>
                         <DropDownPicker
                             listMode='MODAL'
                             style={formStyles.formField}

@@ -72,9 +72,12 @@ exports.delete = async (req, res) => {
         if (!item) {
             return res.status(401).json({ message: 'Does not exist.' });
         }
-        await Buyer.deleteOne({ _id: item.buyer });
+        const carBuyers = await Sell.find({ buyer: item.buyer })
         await Car.updateOne({ _id: item.car }, { sold: false });
         await item.remove();
+        if (!carBuyers) {
+            await Buyer.deleteOne({ _id: item.buyer });
+        }
         return res.status(200).json({ message: 'Removed' });
     } catch (error) {
         return res.status(500).json({ message: error.message });

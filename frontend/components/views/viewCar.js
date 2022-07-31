@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import { modalStyles } from '../styles/modalStyle'
+import { modalStyles } from '../../styles/modalStyle'
 
 const ViewCar = ({ car }) => {
     return (

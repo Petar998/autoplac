@@ -6,24 +6,22 @@ const carRoutes = require("./routes/cars_routes");
 const userRoutes = require('./routes/user_routes');
 const sellRoutes = require("./routes/sell_routes");
 const buyerRoutes = require("./routes/buyer_routes");
-const complaintRoutes = require("./routes/complaints");
+const complaintRoutes = require("./routes/complaints_routes");
+
 const cors = require('cors')
 const app = express();
-// app.set("view engine", "ejs");
-// app.set("views", __dirname + "/views");
-// app.set("layout", "layouts/layout");
-// app.use(expressLayouts);
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 app.use(bodyParser.json());
 mongoose.connect("mongodb://127.0.0.1:27017/autoplac-db", { useNewUrlParser: true });
 app.use(cors());
-// app.use("/", indexRouter);
+
 loginRoutes(app);
 carRoutes(app);
 userRoutes(app);
 sellRoutes(app);
 buyerRoutes(app);
-// app.use("/complaints", complaintRouter);
+complaintRoutes(app)
+
 app.listen(3333);

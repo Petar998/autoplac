@@ -1,13 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export const carStyles = StyleSheet.create({
-    content: {
-        flex: 1,
-        paddingBottom: 10
-    },
-    container: {
-        padding: 10,
-    },
     card: {
         borderColor: '#000000',
         borderWidth: 2,

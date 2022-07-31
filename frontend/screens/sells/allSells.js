@@ -3,13 +3,13 @@ import { Alert, Keyboard, Modal, Text, TouchableOpacity, TouchableWithoutFeedbac
 import { UserContext } from '../../App';
 import useAxios from '../../components/hooks/useAxios';
 import Axios from 'axios';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { ScrollView } from 'react-native-gesture-handler';
 import { listStyles } from '../../styles/listStyle';
 import { buttonStyles } from '../../styles/buttonStyles';
 import { modalStyles } from '../../styles/modalStyle';
 import moment from 'moment';
-import ViewSell from '../../components/viewSell';
+import ViewSell from '../../components/views/viewSell';
 
 const AllSells = ({ navigation }) => {
     const user = useContext(UserContext);
@@ -53,14 +53,14 @@ const AllSells = ({ navigation }) => {
     }
 
     return (
-        <View>
+        <View style={listStyles.content}>
             <TouchableOpacity onPress={() => navigation.push('NewSell')}>
                 <View style={buttonStyles.button}>
                     <Text style={buttonStyles.buttonText}>DODAJ</Text>
-                    <AntDesign name="pluscircleo" size={18} />
+                    <MaterialIcons name="add-business" size={18} />
                 </View>
             </TouchableOpacity>
-            <ScrollView style={listStyles.constainer}>
+            <ScrollView style={listStyles.container}>
                 {sellList.length !== 0 ? sellList.map((sell) => <View key={sell._id} style={listStyles.card}>
                     <View>
                         <Text>Vozilo: {sell?.car?.brand} {sell?.car?.model}</Text>

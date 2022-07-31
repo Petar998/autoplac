@@ -3,9 +3,9 @@ import { Alert, Keyboard, Modal, ScrollView, Text, TouchableOpacity, TouchableWi
 import { UserContext } from '../../App';
 import useAxios from '../../components/hooks/useAxios';
 import { listStyles } from '../../styles/listStyle';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import Axios from 'axios';
-import ViewUser from '../../components/viewUser';
+import ViewUser from '../../components/views/viewUser';
 import { modalStyles } from '../../styles/modalStyle';
 import { buttonStyles } from '../../styles/buttonStyles';
 
@@ -39,10 +39,10 @@ const allUsers = ({ navigation }) => {
         try {
             if (id !== user.data.id) {
                 await Axios.delete(`http://10.0.2.2:3333/users/${id}`, { withCredentials: false, headers: { Authorization: `Bearer ${user.data.token}` } });
-                Alert.alert('Poruka!', 'Korisnik je obrisan.', [{ text: "OK" }]);
+                Alert.alert('Poruka', 'Korisnik je obrisan.', [{ text: "OK" }]);
                 refreshUserList();
             } else {
-                Alert.alert('Greška!', 'Ne možete obrisati ovog korisnika.', [{ text: "OK" }]);
+                Alert.alert('Greška', 'Ne možete obrisati ovog korisnika.', [{ text: "OK" }]);
             }
         } catch (err) {
             Alert.alert('Greška', 'Problem sa brisanjem korisnika.', [{ text: "OK" }]);
@@ -55,14 +55,14 @@ const allUsers = ({ navigation }) => {
     }
 
     return (
-        <View>
+        <View style={listStyles.content}>
             <TouchableOpacity onPress={() => navigation.push('NewUser')}>
                 <View style={buttonStyles.button}>
                     <Text style={buttonStyles.buttonText}>DODAJ</Text>
-                    <AntDesign name="pluscircleo" size={18} />
+                    <MaterialIcons name="person-add" size={18} />
                 </View>
             </TouchableOpacity>
-            <ScrollView style={listStyles.constainer}>
+            <ScrollView style={listStyles.container}>
                 {userList.length !== 0 ? userList.map((user) => <View key={user._id} style={listStyles.card}>
                     <View>
                         <Text>Ime i prezime: {user.firstName} {user.lastName}</Text>
