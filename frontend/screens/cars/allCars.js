@@ -17,6 +17,7 @@ const AllCars = ({ navigation }) => {
     const [carList, setCarList] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [chosenCar, setChosenCar] = useState();
+    const [activeButton, setActiveButton] = useState('');
 
     useEffect(() => {
         fetchCars('http://10.0.2.2:3333/cars', []);
@@ -61,6 +62,7 @@ const AllCars = ({ navigation }) => {
             if (response.data && response.data.items) {
                 setCarList(response.data.items);
             }
+            setActiveButton('sold')
         } catch (error) {
             Alert.alert('Greška', 'Problem sa učitavanjem vozila.', [{ text: "OK" }]);
         }
@@ -74,6 +76,7 @@ const AllCars = ({ navigation }) => {
             if (response.data && response.data.items) {
                 setCarList(response.data.items);
             }
+            setActiveButton('onStock')
         } catch (error) {
             Alert.alert('Greška', 'Problem sa učitavanjem vozila.', [{ text: "OK" }]);
         }
@@ -87,6 +90,7 @@ const AllCars = ({ navigation }) => {
             if (response.data && response.data.items) {
                 setCarList(response.data.items);
             }
+            setActiveButton('all')
         } catch (error) {
             Alert.alert('Greška', 'Problem sa učitavanjem vozila.', [{ text: "OK" }]);
         }
@@ -103,17 +107,17 @@ const AllCars = ({ navigation }) => {
             <View style={carStyles.buttonContainer}>
                 <TouchableOpacity onPress={showSoldCars}>
                     <View style={buttonStyles.buttonSold}>
-                        <Text style={buttonStyles.buttonText}>Samo prodata</Text>
+                        <Text style={activeButton === 'sold' ? buttonStyles.activeButtonText : buttonStyles.buttonText}>Samo prodata</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={showOnStockCars}>
                     <View style={buttonStyles.buttonOnStock}>
-                        <Text style={buttonStyles.buttonText}>Samo dostupna</Text>
+                        <Text style={activeButton === 'onStock' ? buttonStyles.activeButtonText : buttonStyles.buttonText}>Samo dostupna</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={showAllCars}>
                     <View style={buttonStyles.buttonAll}>
-                        <Text style={buttonStyles.buttonText}>Prikaži sve</Text>
+                        <Text style={activeButton === 'all' ? buttonStyles.activeButtonText : buttonStyles.buttonText}>Prikaži sve</Text>
                     </View>
                 </TouchableOpacity>
             </View>

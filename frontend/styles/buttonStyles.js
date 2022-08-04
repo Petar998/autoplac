@@ -25,5 +25,9 @@ export const buttonStyles = StyleSheet.create({
     buttonAll: {
         padding: 5,
         backgroundColor: '#B2B5B8',
+    },
+    activeButtonText: {
+        color: '#2196F3',
+        fontSize: 14,
     }
 })
