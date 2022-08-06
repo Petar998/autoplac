@@ -16,9 +16,12 @@ const EditSell = ({ navigation }) => {
         if (id) {
             fetchSell(`http://10.0.2.2:3333/sells/${id}`, [])
         }
-        fetchCars('http://10.0.2.2:3333/cars', []);
+        if (sell.data && sell.data.length !== 0) {
+            const filter = { $or: [{ sold: false }, { _id: sell.data.car._id }] }
+            fetchCars(`http://10.0.2.2:3333/cars?filter=${JSON.stringify(filter)}`, []);
+        }
         fetchBuyers('http://10.0.2.2:3333/buyers', []);
-    }, [id, fetchSell, fetchCars, fetchBuyers])
+    }, [id, fetchSell, fetchCars, fetchBuyers, sell])
 
     const onSubmit = async (data) => {
         try {

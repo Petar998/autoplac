@@ -216,6 +216,7 @@ const SellForm = ({ data, cars, onSubmit, buyers }) => {
                             onBlur={props.handleBlur('phone')}
                             value={props.values.phone}
                             placeholder='Kontakt telefon'
+                            keyboardType='numeric'
                         />
                         <Text style={formStyles.errorText}>{props.touched.phone && props.errors.phone && 'Ovo polje je obavezno!'}</Text>
                         <Button title='Odaberi datum' onPress={openCalendar} />
