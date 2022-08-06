@@ -8,7 +8,8 @@ Komanda: npm run dev
 
 # Rešenje problema sa interpolate
 
-Otvoriti fajl Drawer.js u folderu /node_modules/react-navigation-drawer/lib/module/views u frontend
+Otvoriti fajl Drawer.js u folderu /node_modules/react-navigation-drawer/lib/module/views u frontend delu projekta
+Zameniti interpolate sa interpolateNode
 
 # Podaci za logovanje
 
