@@ -72,10 +72,10 @@ exports.delete = async (req, res) => {
         if (!item) {
             return res.status(401).json({ message: 'Does not exist.' });
         }
-        const carBuyers = await Sell.find({ buyer: item.buyer })
+        const carBuyers = await Sell.find({ buyer: item.buyer }).count();
         await Car.updateOne({ _id: item.car }, { sold: false });
         await item.remove();
-        if (!carBuyers) {
+        if (carBuyers === 1) {
             await Buyer.deleteOne({ _id: item.buyer });
         }
         return res.status(200).json({ message: 'Removed' });
